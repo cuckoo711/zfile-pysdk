@@ -52,28 +52,38 @@ class VersionUpdater:
                 'file': 'docs/README.md',
                 'pattern': r'- 当前版本：\*\*([^*]+)\*\*',
                 'replacement': '- 当前版本：**{version}**'
+            },
+            {
+                'file': 'update_version.py',
+                'pattern': r'__version__ = "([^"]+)"',
+                'replacement': '__version__ = "{version}"'
             }
         ]
 
     def get_current_version(self) -> str:
-        """从pyproject.toml获取当前版本号
-        
+        """从pyproject.toml或update_version.py获取当前版本号
+
         Returns:
             当前版本号
         """
         pyproject_path = os.path.join(self.project_root, 'pyproject.toml')
+        update_version_path = os.path.join(self.project_root, 'update_version.py')
 
-        if not os.path.exists(pyproject_path):
-            raise FileNotFoundError(f"找不到文件: {pyproject_path}")
+        if os.path.exists(pyproject_path):
+            with open(pyproject_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            match = re.search(r'version = "([^"]+)"', content)
+            if match:
+                return match.group(1)
 
-        with open(pyproject_path, 'r', encoding='utf-8') as f:
-            content = f.read()
+        if os.path.exists(update_version_path):
+            with open(update_version_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            match = re.search(r'__version__ = "([^"]+)"', content)
+            if match:
+                return match.group(1)
 
-        match = re.search(r'version = "([^"]+)"', content)
-        if match:
-            return match.group(1)
-
-        raise ValueError("无法从pyproject.toml中找到版本号")
+        raise ValueError("无法从pyproject.toml或update_version.py中找到版本号")
 
     @staticmethod
     def validate_version_format(version: str) -> bool:
@@ -85,8 +95,8 @@ class VersionUpdater:
         Returns:
             是否为有效的版本号格式
         """
-        # 支持语义化版本号格式：x.y.z 或 x.y.z-alpha.1 等
-        pattern = r'^\d+\.\d+\.\d+(?:-[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*)?$'
+        # 支持语义化版本号格式：x.y.z 或 x.y.z-alpha.1 等，以及 x.y.z-pre.1+build.123
+        pattern = r'^\d+\.\d+\.\d+(?:-[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*)?(?:\+[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*)?$'
         return bool(re.match(pattern, version))
 
     def update_file_version(self, file_info: dict, new_version: str) -> Tuple[bool, str]:
