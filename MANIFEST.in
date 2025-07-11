@@ -1,0 +1,12 @@
+include README.md
+include docs/README.md
+include docs/LICENSE
+include docs/LICENSE_CN
+include requirements.txt
+include *.py
+include ZfileSDK/py.typed
+recursive-include ZfileSDK *.py
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * *.so
+recursive-exclude * .DS_Store

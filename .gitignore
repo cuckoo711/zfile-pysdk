@@ -1,0 +1,67 @@
+# -----------------------
+# IDE & Editor
+# -----------------------
+.idea/
+.vscode/
+
+# -----------------------
+# Virtual Environments
+# -----------------------
+.venv/
+venv/
+ENV/
+env/
+*.env
+
+# -----------------------
+# Python cache & artifacts
+# -----------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# -----------------------
+# Distribution / packaging
+# -----------------------
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# -----------------------
+# Logs and databases
+# -----------------------
+*.log
+*.sqlite3
+*.db
+
+# -----------------------
+# Miscellaneous
+# -----------------------
+*.pyc
+*.pyo
+*.pyd
+.Python
+coverage.xml
+htmlcov/
+.tox/
+.coverage
+.cache
+pytest_cache/
+
+# -----------------------
+# OS-specific
+# -----------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------
+# Documentation
+# -----------------------
+docs/OpenAPI
+
+# -----------------------
+# Tests
+# -----------------------
+tests/

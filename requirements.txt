@@ -1,0 +1,4 @@
+requests~=2.32.4
+pydantic~=2.11.7
+urllib3~=2.5.0
+setuptools~=80.3.1

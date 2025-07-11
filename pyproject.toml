@@ -1,0 +1,94 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zfile-pysdk"
+version = "1.0.0"
+authors = [
+    { name = "cuckoo", email = "3038604221@qq.com" },
+]
+description = "Python SDK for ZFile API - 功能完整的ZFile文件管理系统SDK"
+readme = "docs/README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: System :: Filesystems",
+    "Typing :: Typed",
+]
+keywords = ["zfile", "file management", "api", "sdk", "cloud storage", "file sharing"]
+dependencies = [
+    "requests~=2.32.4",
+    "pydantic~=2.11.7",
+    "urllib3~=2.5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=2.0",
+    "black>=21.0",
+    "flake8>=3.8",
+    "mypy>=0.800",
+]
+docs = [
+    "sphinx>=4.0",
+    "sphinx-rtd-theme>=1.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/cuckoo711/zfile_sdk"
+"Bug Tracker" = "https://github.com/cuckoo711/zfile_sdk/issues"
+"Documentation" = "https://api.zfile.vip/"
+"Source Code" = "https://github.com/cuckoo711/zfile_sdk"
+
+[tool.setuptools.packages.find]
+where = ["."]  # list of folders that contain the packages (["src"] by default)
+include = ["ZfileSDK*"]  # package names should match these glob patterns (["*"] by default)
+exclude = ["tests*"]  # exclude packages matching these glob patterns (empty by default)
+
+[tool.setuptools.package-data]
+"ZfileSDK" = ["py.typed"]
+"*" = ["*.txt", "*.md"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+extend-exclude = '''
+(
+  /(
+      \.eggs
+    | \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+)
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
