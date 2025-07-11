@@ -34,7 +34,7 @@ pip install -e .
 
 ### 依赖要求
 
-- Python 3.8+
+- Python 3.10+
 - requests ~= 2.32.4
 - pydantic ~= 2.11.7
 - urllib3 ~= 2.5.0
@@ -294,7 +294,7 @@ def get_files(*, data: FileListRequest):
 ## 📝 注意事项
 
 - 本 SDK 仅支持 ZFile 版本 4.0.1 及以上。
-- 当前版本：**1.0.0**
+- 当前版本：**1.0.1**
 - 包名：**zfile-pysdk**
 
 ---
