@@ -7,7 +7,7 @@ ZFile SDK - Python SDK for ZFile API
 from .utils import ApiClient, ApiException, CustomException, ErrorDataModel, LogHandler
 
 # 版本信息
-__version__ = "1.0.4"
+__version__ = "1.1.0"
 __author__ = "cuckoo"
 __description__ = "Python SDK for ZFile API"
 

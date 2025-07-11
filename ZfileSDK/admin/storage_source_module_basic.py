@@ -8,16 +8,11 @@ Editor: cuckoo
 """
 
 from typing import List
+
 from ..utils.base import ApiClient, BaseClass, auto_args_from_model
-from ..utils.models import (
-    AjaxJsonInteger,
-    AjaxJsonVoid,
-    AjaxJsonListStorageSourceAdminResult,
-    AjaxJsonStorageSourceDTO,
-    SaveStorageSourceRequest,
-    CopyStorageSourceRequest,
-    UpdateStorageSortRequest
-)
+from ..utils.models import (AjaxJsonBoolean, AjaxJsonInteger, AjaxJsonListStorageSourceAdminResult,
+                            AjaxJsonStorageSourceDTO, AjaxJsonVoid, CopyStorageSourceRequest, SaveStorageSourceRequest,
+                            UpdateStorageSortRequest)
 
 
 class StorageSourceModuleBasic(BaseClass):
@@ -124,8 +119,8 @@ class StorageSourceModuleBasic(BaseClass):
             CustomException: 当请求失败或 API 返回错误时。
         """
         # 将列表转换为字典列表
-        sort_data = [item.to_dict() for item in data]
-        
+        sort_data = [item.model_dump_json(exclude_none=True, by_alias=True) for item in data]
+
         response = self.api_client.post(
             endpoint="/admin/storage/sort",
             response_model=AjaxJsonVoid,
@@ -207,4 +202,24 @@ class StorageSourceModuleBasic(BaseClass):
             response_model=AjaxJsonVoid
         )
         self._logger.info(f"[{response.trace_id}]删除存储源 {storage_id}: {response.msg}")
+        return response
+
+    def exist_key(self, storage_key: str) -> AjaxJsonBoolean:
+        """校验存储源 key 是否重复。
+
+        Args:
+            storage_key (str): 存储源 key。
+
+        Returns:
+            AjaxJsonBoolean: 校验结果，True 表示重复。
+
+        Raises:
+            CustomException: 当请求失败或 API 返回错误时。
+        """
+        response = self.api_client.get(
+            endpoint="/admin/storage/exist/key",
+            response_model=AjaxJsonBoolean,
+            params={"storageKey": storage_key}
+        )
+        self._logger.info(f"[{response.trace_id}]校验存储源key重复 {storage_key}: {response.msg}")
         return response

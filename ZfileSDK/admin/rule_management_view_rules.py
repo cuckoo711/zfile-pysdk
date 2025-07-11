@@ -8,19 +8,9 @@ Editor: cuckoo
 """
 
 from ..utils.base import ApiClient, BaseClass, auto_args_from_model
-from ..utils.models import (
-    AjaxJsonUserRuleSettingDTO,
-    AjaxJsonRuleViewItem,
-    AjaxJsonRuleDTORuleViewItem,
-    AjaxJsonCollectionRuleView,
-    AjaxJsonBoolean,
-    AjaxJsonInteger,
-    UserRuleSettingDTO,
-    TestViewRuleRequest,
-    RuleDTORuleViewItem,
-    QueryRuleRequest,
-    CheckRuleDuplicateRequest
-)
+from ..utils.models import (AjaxJsonBoolean, AjaxJsonCollectionRuleView, AjaxJsonInteger, AjaxJsonRuleDTORuleViewItem,
+                            AjaxJsonRuleViewItem, AjaxJsonUserRuleSettingDTO, CheckRuleDuplicateRequest,
+                            QueryRuleRequest, RuleDTORuleViewItem, TestViewRuleRequest, UserRuleSettingDTO)
 
 
 class RuleManagementViewRules(BaseClass):

@@ -8,13 +8,9 @@ Editor: cuckoo
 """
 
 from typing import List
+
 from ..utils.base import ApiClient, BaseClass
-from ..utils.models import (
-    AjaxJsonListReadmeConfig,
-    AjaxJsonVoid,
-    ReadmeConfig,
-    PasswordConfig
-)
+from ..utils.models import AjaxJsonListReadmeConfig, AjaxJsonVoid, PasswordConfig
 
 
 class StorageSourceModuleReadme(BaseClass):
@@ -66,8 +62,8 @@ class StorageSourceModuleReadme(BaseClass):
             CustomException: 当请求失败或 API 返回错误时。
         """
         # 将密码配置列表转换为字典列表
-        password_data = [config.to_dict() for config in password_configs]
-        
+        password_data = [config.model_dump_json(exclude_none=True, by_alias=True) for config in password_configs]
+
         response = self.api_client.post(
             endpoint=f"/admin/storage/{storage_id}/readme",
             response_model=AjaxJsonVoid,

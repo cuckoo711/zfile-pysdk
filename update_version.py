@@ -35,18 +35,18 @@ class VersionUpdater:
             },
             {
                 'file': 'ZfileSDK/__init__.py',
-                'pattern': r'__version__ = "([^"]+)"',
-                'replacement': '__version__ = "{version}"'
+                'pattern': r'__version__ = "1.1.0"]+)"',
+                'replacement': '__version__ = "1.1.0"'
             },
             {
                 'file': 'ZfileSDK/admin/__init__.py',
-                'pattern': r'__version__ = "([^"]+)"',
-                'replacement': '__version__ = "{version}"'
+                'pattern': r'__version__ = "1.1.0"]+)"',
+                'replacement': '__version__ = "1.1.0"'
             },
             {
                 'file': 'ZfileSDK/front/__init__.py',
-                'pattern': r'__version__ = "([^"]+)"',
-                'replacement': '__version__ = "{version}"'
+                'pattern': r'__version__ = "1.1.0"]+)"',
+                'replacement': '__version__ = "1.1.0"'
             },
             {
                 'file': 'docs/README.md',
@@ -55,8 +55,8 @@ class VersionUpdater:
             },
             {
                 'file': 'update_version.py',
-                'pattern': r'__version__ = "([^"]+)"',
-                'replacement': '__version__ = "{version}"'
+                'pattern': r'__version__ = "1.1.0"]+)"',
+                'replacement': '__version__ = "1.1.0"'
             }
         ]
 
@@ -79,7 +79,7 @@ class VersionUpdater:
         if os.path.exists(update_version_path):
             with open(update_version_path, 'r', encoding='utf-8') as f:
                 content = f.read()
-            match = re.search(r'__version__ = "([^"]+)"', content)
+            match = re.search(r'__version__ = "1.1.0"]+)"', content)
             if match:
                 return match.group(1)
 

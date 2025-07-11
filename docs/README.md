@@ -10,12 +10,13 @@ Pydantic 的类型安全请求/响应处理和统一的错误管理机制。
 - 🔗 **链接管理** - 批量生成直链和短链
 - 🌐 **多平台集成** - 支持 Google Drive、OneDrive、SharePoint、S3、115网盘等存储源
 - ⚙️ **站点配置** - 获取站点全局设置、存储源配置等
+- 👨‍💼 **管理员功能** - 完整的后台管理功能，包括用户管理、权限控制、存储源管理等
 - 📝 **类型安全** - 基于 Pydantic 2.x 的强类型支持和数据验证
 - 🛡️ **错误处理** - 统一的异常处理和错误管理机制
 - 📊 **日志记录** - 完整的操作日志和调试信息
 - 🔧 **装饰器支持** - 自动参数解析和模型验证
 
-## 📦 安装
+## 📦 安装（两种安装方式选择一种即可，建议从PyPI安装）
 
 ### 从 PyPI 安装（推荐）
 
@@ -39,13 +40,29 @@ pip install -e .
 - pydantic ~= 2.11.7
 - urllib3 ~= 2.5.0
 
+### 更新方式
+
+#### 从 PyPI 更新
+
+```bash
+pip install --upgrade zfile-pysdk
+```
+
+#### 从源码更新
+
+```bash
+git pull origin main
+pip install -r requirements.txt
+pip install -e .
+```
+
 ## 🚀 快速开始
 
 ### 基础用法
 
 ```python
 # 导入核心客户端
-from ZfileSDK.utils.api_client import ApiClient
+from ZfileSDK.utils import ApiClient
 ```
 
 ### 创建客户端实例
@@ -98,6 +115,25 @@ result = file_op_module.mkdir(
 )
 ```
 
+### 管理员功能示例
+
+```python
+from ZfileSDK.admin import UserManagement, StorageSourceModuleBasic
+
+# 用户管理
+user_mgmt = UserManagement(client)
+users = user_mgmt.list_users(
+    page=1,
+    size=10,
+    order_by="id",
+    order_direction="desc"
+)
+
+# 存储源管理
+storage_mgmt = StorageSourceModuleBasic(client)
+storages = storage_mgmt.list_storage_sources()
+```
+
 ### 短链生成示例
 
 ```python
@@ -117,65 +153,112 @@ links = short_link_module.batch_generate(
 ```
 zfile_sdk/
 ├── ZfileSDK/
-│   ├── __init__.py
-│   ├── utils/                          # 核心工具模块
-│   │   ├── __init__.py
-│   │   ├── api_client.py               # HTTP 客户端封装
-│   │   ├── models.py                   # Pydantic 数据模型
-│   │   ├── exceptions.py               # 异常定义
-│   │   ├── logger.py                   # 日志处理
-│   │   └── base.py                     # 基础类和装饰器
-│   ├── front/                          # 前台用户功能模块
-│   │   ├── __init__.py
-│   │   ├── file_list_module.py         # 文件列表模块
-│   │   ├── file_operation_module.py    # 文件操作模块
-│   │   ├── site_basic_module.py        # 站点基础模块
-│   │   ├── user_interface.py           # 用户接口模块
-│   │   ├── short_link.py               # 短链模块
-│   │   ├── direct_short_chain_module.py # 直链短链模块
-│   │   ├── initialization_module.py    # 初始化模块
-│   │   ├── single_sign_on.py           # 单点登录模块
-│   │   ├── server_proxy_download.py    # 服务器代理下载
-│   │   ├── server_proxy_upload.py      # 服务器代理上传
-│   │   ├── onlyoffice_related_interfaces.py # OnlyOffice 接口
-│   │   ├── gd_tools_assistive_module.py # Google Drive 工具
-│   │   ├── sharepoint_tools_assistive_module.py # SharePoint 工具
-│   │   ├── s3_tools_assistive_module.py # S3 工具
-│   │   ├── oneonefive_tools_assistive_module.py # 115网盘工具
-│   │   ├── open_115_url_controller.py  # 115网盘 URL 控制器
-│   │   ├── onedrive_authentication_callback_module.py # OneDrive 认证回调
-│   │   └── single_sign_on_interface.py # 单点登录接口
-│   └── admin/                          # 管理员功能模块
-│       └── __init__.py
-├── docs/                               # 文档目录
-│   ├── README.md                       # 项目说明
-│   ├── LICENSE                         # 许可证
-│   └── LICENSE_CN                      # 中文许可证
-├── requirements.txt                    # 依赖列表
-├── setup.py                           # 安装脚本
-└── test.py                            # 测试文件
+│   ├── __init__.py                                     # 主模块初始化导入
+│   ├── admin/                                          # 管理员功能模块
+│   │   ├── __init__.py                                 # 后台管理员模块导入
+│   │   ├── user_management.py                          # 用户管理
+│   │   ├── login_module.py                             # 登录模块
+│   │   ├── permission_module.py                        # 权限模块
+│   │   ├── login_log_management.py                     # 登录日志管理
+│   │   ├── single_sign_on_management.py                # 单点登录管理
+│   │   ├── site_setting_module.py                      # 站点设置
+│   │   ├── storage_source_module_basic.py              # 存储源基础管理
+│   │   ├── storage_source_module_filter_file.py        # 存储源过滤文件
+│   │   ├── storage_source_module_metadata.py           # 存储源元数据
+│   │   ├── storage_source_module_permission.py         # 存储源权限
+│   │   ├── storage_source_module_readme.py             # 存储源README
+│   │   ├── rule_management_view_rules.py               # 显示规则管理
+│   │   ├── rule_management_upload_rules.py             # 上传规则管理
+│   │   ├── rule_matcher_helper.py                      # 规则匹配辅助
+│   │   ├── direct_link_management.py                   # 直链管理
+│   │   ├── direct_link_log_management.py               # 直链日志管理
+│   │   └── ip_address_helper.py                        # IP地址辅助工具
+│   ├── front/                                          # 前台用户功能模块
+│   │   ├── __init__.py                                 # 用户前台初始化导入
+│   │   ├── file_list_module.py                         # 文件列表模块
+│   │   ├── file_operation_module.py                    # 文件操作模块
+│   │   ├── site_basic_module.py                        # 站点基础模块
+│   │   ├── user_interface.py                           # 用户接口模块
+│   │   ├── short_link.py                               # 短链模块
+│   │   ├── direct_short_chain_module.py                # 直链短链模块
+│   │   ├── initialization_module.py                    # 初始化模块
+│   │   ├── single_sign_on.py                           # 单点登录模块
+│   │   ├── single_sign_on_interface.py                 # 单点登录接口
+│   │   ├── server_proxy_download.py                    # 服务器代理下载
+│   │   ├── server_proxy_upload.py                      # 服务器代理上传
+│   │   ├── onlyoffice_related_interfaces.py            # OnlyOffice 接口
+│   │   ├── gd_tools_assistive_module.py                # Google Drive 工具
+│   │   ├── sharepoint_tools_assistive_module.py        # SharePoint 工具
+│   │   ├── s3_tools_assistive_module.py                # S3 工具
+│   │   ├── oneonefive_tools_assistive_module.py        # 115网盘工具
+│   │   ├── open_115_url_controller.py                  # 115网盘 URL 控制器
+│   │   └── onedrive_authentication_callback_module.py  # OneDrive 认证回调
+│   ├── utils/                                          # 核心工具模块
+│   │   ├── __init__.py                                 # 工具初始化导入
+│   │   ├── api_client.py                               # HTTP 客户端封装
+│   │   ├── models.py                                   # Pydantic 数据模型
+│   │   ├── exceptions.py                               # 异常定义
+│   │   ├── logger.py                                   # 日志处理
+│   │   └── base.py                                     # 基础类和装饰器
+│   └── py.typed                                        # 类型标注文件
+├── docs/                                               # 文档目录
+│   ├── README.md                                       # 项目说明
+│   ├── LICENSE                                         # 许可证
+│   └── LICENSE_CN                                      # 中文许可证
+├── requirements.txt                                    # 依赖列表
+├── setup.py                                            # 安装脚本
+├── pyproject.toml                                      # 项目配置
+├── MANIFEST.in                                         # 打包配置
+├── clean_for_release.sh                                # 发布清理脚本
+└── update_version.py                                   # 版本更新脚本
 ```
 
 ## 🔧 核心功能
 
 ### 前台功能模块 (front/)
 
-| 模块                                    | 功能描述                     |
-|---------------------------------------|--------------------------|
-| **file_list_module**                  | 文件列表查看、存储搜索、单个文件信息获取     |
-| **file_operation_module**             | 文件操作（创建、删除、重命名、移动、复制、上传） |
-| **site_basic_module**                 | 站点基础信息和配置获取、存储源配置        |
-| **user_interface**                    | 用户登录、密码管理、验证码获取          |
-| **short_link**                        | 批量生成直链和短链                |
-| **initialization_module**             | 系统初始化和配置检查               |
-| **single_sign_on**                    | 单点登录功能                   |
-| **server_proxy_download**             | 服务器代理下载                  |
-| **server_proxy_upload**               | 服务器代理上传                  |
-| **onlyoffice_related_interfaces**     | OnlyOffice 文档预览和在线编辑     |
-| **gd_tools_assistive_module**         | Google Drive 集成和文件操作     |
-| **sharepoint_tools_assistive_module** | SharePoint 集成和文件管理       |
-| **s3_tools_assistive_module**         | AWS S3 兼容存储集成            |
-| **oneonefive_tools_assistive_module** | 115网盘集成                  |
+| 模块                                          | 功能描述                     |
+|---------------------------------------------|--------------------------|
+| **file_list_module**                        | 文件列表查看、存储搜索、单个文件信息获取     |
+| **file_operation_module**                   | 文件操作（创建、删除、重命名、移动、复制、上传） |
+| **site_basic_module**                       | 站点基础信息和配置获取、存储源配置        |
+| **user_interface**                          | 用户登录、密码管理、验证码获取          |
+| **short_link**                              | 批量生成直链和短链                |
+| **direct_short_chain_module**               | 直链短链生成和管理                |
+| **initialization_module**                   | 系统初始化和配置检查               |
+| **single_sign_on**                          | 单点登录功能                   |
+| **single_sign_on_interface**                | 单点登录接口                   |
+| **server_proxy_download**                   | 服务器代理下载                  |
+| **server_proxy_upload**                     | 服务器代理上传                  |
+| **onlyoffice_related_interfaces**           | OnlyOffice 文档预览和在线编辑     |
+| **gd_tools_assistive_module**               | Google Drive 集成和文件操作     |
+| **sharepoint_tools_assistive_module**       | SharePoint 集成和文件管理       |
+| **s3_tools_assistive_module**               | AWS S3 兼容存储集成            |
+| **oneonefive_tools_assistive_module**       | 115网盘集成                  |
+| **open_115_url_controller**                 | 115网盘 URL 控制器            |
+| **onedrive_authentication_callback_module** | OneDrive 认证回调            |
+
+### 管理员功能模块 (admin/)
+
+| 模块                                    | 功能描述               |
+|---------------------------------------|--------------------|
+| **user_management**                   | 用户管理（增删改查、复制、权限设置） |
+| **login_module**                      | 登录模块（2FA验证、设备绑定）   |
+| **permission_module**                 | 权限模块（权限列表查看）       |
+| **login_log_management**              | 登录日志管理（日志查询）       |
+| **single_sign_on_management**         | 单点登录管理（SSO服务商配置）   |
+| **site_setting_module**               | 站点设置（全局配置管理）       |
+| **storage_source_module_basic**       | 存储源基础管理（增删改查、排序）   |
+| **storage_source_module_filter_file** | 存储源过滤文件管理          |
+| **storage_source_module_metadata**    | 存储源元数据（支持类型、参数定义）  |
+| **storage_source_module_permission**  | 存储源权限控制            |
+| **storage_source_module_readme**      | 存储源README和密码文件夹管理  |
+| **rule_management_view_rules**        | 显示规则管理（规则增删改查、测试）  |
+| **rule_management_upload_rules**      | 上传规则管理（规则增删改查、测试）  |
+| **rule_matcher_helper**               | 规则匹配测试辅助工具         |
+| **direct_link_management**            | 直链管理（直链增删改查）       |
+| **direct_link_log_management**        | 直链日志管理（日志查询）       |
+| **ip_address_helper**                 | IP地址辅助工具（IP信息查询）   |
 
 ### 工具模块 (utils/)
 
@@ -233,7 +316,7 @@ response = client.post("POST", "/api/endpoint", data={"key": "value"})
 ### 错误处理
 
 ```python
-from ZfileSDK.utils.exceptions import ApiException, CustomException
+from ZfileSDK.utils import ApiException, CustomException
 
 try:
     client.login(username="invalid", password="invalid")
@@ -294,7 +377,7 @@ def get_files(*, data: FileListRequest):
 ## 📝 注意事项
 
 - 本 SDK 仅支持 ZFile 版本 4.0.1 及以上。
-- 当前版本：**1.0.4**
+- 当前版本：**1.1.0**
 - 包名：**zfile-pysdk**
 
 ---

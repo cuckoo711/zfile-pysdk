@@ -67,7 +67,7 @@ class ApiClient:
             method: str,
             endpoint: str,
             response_model: Type[T],
-            data: Optional[BaseModel] = None,
+            data: Optional[BaseModel | Any] = None,
             params: Optional[dict[str, Any]] = None,
     ) -> type[T] | None:
         """执行 API 请求的核心方法。
@@ -210,23 +210,23 @@ class ApiClient:
 
     # --- 通用 HTTP 方法封装 ---
     def get(self, endpoint: str, response_model: Type[T], params: Optional[dict[str, Any]] = None,
-            data: Optional[BaseModel] = None) -> T:
+            data: Optional[BaseModel | Any] = None) -> T:
         return self._make_request("GET", endpoint, response_model=response_model, params=params, data=data)
 
     def post(self, endpoint: str, response_model: Type[T], params: Optional[dict[str, Any]] = None,
-             data: Optional[BaseModel] = None) -> T:
+             data: Optional[BaseModel | Any] = None) -> T:
         return self._make_request("POST", endpoint, response_model=response_model, params=params, data=data)
 
     def put(self, endpoint: str, response_model: Type[T], params: Optional[dict[str, Any]] = None,
-            data: Optional[BaseModel] = None) -> T:
+            data: Optional[BaseModel | Any] = None) -> T:
         return self._make_request("PUT", endpoint, response_model=response_model, params=params, data=data)
 
     def delete(self, endpoint: str, response_model: Type[T], params: Optional[dict[str, Any]] = None,
-               data: Optional[BaseModel] = None) -> T:
+               data: Optional[BaseModel | Any] = None) -> T:
         return self._make_request("DELETE", endpoint, response_model=response_model, params=params, data=data)
 
     def patch(self, endpoint: str, response_model: Type[T], params: Optional[dict[str, Any]] = None,
-              data: Optional[BaseModel] = None) -> T:
+              data: Optional[BaseModel | Any] = None) -> T:
         return self._make_request("PATCH", endpoint, response_model=response_model, params=params, data=data)
 
     # --- 属性访问器 ---

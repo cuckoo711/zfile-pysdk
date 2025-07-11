@@ -63,7 +63,7 @@ class StorageSourceModuleFilterFile(BaseClass):
         """
         # 将过滤配置列表转换为字典列表
         filter_data = [filter_item.model_dump(exclude_none=True, by_alias=True) for filter_item in filters]
-        
+
         response = self.api_client.post(
             endpoint=f"/admin/storage/{storage_id}/filters",
             response_model=AjaxJsonVoid,
