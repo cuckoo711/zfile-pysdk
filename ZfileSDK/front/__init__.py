@@ -23,6 +23,9 @@ from .single_sign_on_interface import SingleSignOnInterface
 from .site_basic_module import SiteBasicModule
 from .user_interface import UserInterface
 
+# 版本信息
+__version__ = "1.0.4"
+
 # 导出的类列表
 __all__ = [
     "DirectShortChainModule",

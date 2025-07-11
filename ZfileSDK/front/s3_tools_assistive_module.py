@@ -25,7 +25,7 @@ class S3ToolsAssistiveModule(BaseClass):
         super().__init__(api_client, name=self.name)
 
     @auto_args_from_model(model=GetS3CorsListRequest)
-    def get_cors_config(self, *, data: GetS3CorsListRequest):
+    def get_cors_config(self, *, data: GetS3CorsListRequest) -> AjaxJsonListZFileCORSRule:
         """获取 S3 CORS 配置。
 
         Args:
@@ -46,7 +46,7 @@ class S3ToolsAssistiveModule(BaseClass):
         return response
 
     @auto_args_from_model(model=GetS3BucketListRequest)
-    def get_buckets(self, *, data: GetS3BucketListRequest):
+    def get_buckets(self, *, data: GetS3BucketListRequest) -> AjaxJsonListS3BucketNameResult:
         """获取 S3 存储桶列表。
 
         Args:

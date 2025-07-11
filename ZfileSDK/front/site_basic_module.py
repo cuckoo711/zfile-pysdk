@@ -25,14 +25,14 @@ class SiteBasicModule(BaseClass):
         super().__init__(api_client, name=self.name)
 
     @auto_args_from_model(model=FileListConfigRequest)
-    def config_storage(self, *, data: FileListConfigRequest):
+    def config_storage(self, *, data: FileListConfigRequest) -> AjaxJsonStorageSourceConfigResult:
         """获取存储源设置。
 
         Args:
             data (FileListConfigRequest): 包含存储源配置信息的请求数据模型。
 
         Returns:
-            AjaxJsonObject: 包含存储源配置信息的响应对象。
+            AjaxJsonStorageSourceConfigResult: 包含存储源配置信息的响应对象。
 
         Raises:
             CustomException: 当请求失败或 API 返回错误时。

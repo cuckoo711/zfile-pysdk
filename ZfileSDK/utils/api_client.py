@@ -12,6 +12,7 @@ from typing import Any, Optional, Type, TypeVar
 import requests
 import urllib3
 from pydantic import BaseModel
+from requests_toolbelt import MultipartEncoder
 
 from .exceptions import ApiException, CustomException
 from .logger import LogHandler
@@ -55,6 +56,7 @@ class ApiClient:
         headers = {
             "Content-Type": "application/json",
             "Accept": "application/json, */*",
+            "Cookie": f"zfile-token={self._token}"
         }
         if self._token:
             headers["zfile-token"] = self._token
@@ -112,16 +114,18 @@ class ApiClient:
             self,
             method: str,
             endpoint: str,
-            date: dict[str, Any] | None = None,
-            params: dict[str, Any] | None = None
+            data: dict[str, Any] | MultipartEncoder | None = None,
+            params: dict[str, Any] | None = None,
+            headers: Optional[dict[str, str]] = None,
     ) -> requests.Response:
         """执行通用的 HTTP 请求。
 
         Args:
             method (str): HTTP 方法 (例如 "GET", "POST")。
             endpoint (str): API 端点路径 (例如 "/user/login")。
-            date (dict[str, Any] | None): 请求体数据。
+            data (dict[str, Any] | None): 请求体数据。
             params (dict[str, Any] | None): URL 查询参数。
+            headers (Optional[dict[str, str]]): 可选的自定义请求头。
 
         Returns:
             Response: requests.Response 对象，包含响应数据。
@@ -130,15 +134,18 @@ class ApiClient:
             ApiException: 当 API 返回非 200 HTTP 状态码时抛出。
         """
         full_url = self.base_url + endpoint
-        self._logger.debug(f"发起 {method} 请求: {full_url}, 数据: {date}, 参数: {params}")
+        self._logger.debug(f"发起 {method} 请求: {full_url}, 数据: {data}, 参数: {params}")
+        if headers:
+            self._session.headers.update(headers)
         try:
             response = self._session.request(
                 method=method,
                 url=full_url,
-                json=date,
                 params=params,
+                data=data,
                 verify=False
             )
+            print(response.text)
             response.raise_for_status()
         except Exception as e:
             self._logger.error(f"网络请求失败: {e}")

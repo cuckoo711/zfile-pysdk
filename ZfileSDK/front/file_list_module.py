@@ -9,7 +9,8 @@ Editor: cuckoo
 
 from ..utils.base import ApiClient, BaseClass, auto_args_from_model
 from ..utils.models import (AjaxJsonFileInfoResult, AjaxJsonFileItemResult, AjaxJsonListFileItemResult,
-                            AjaxJsonListStorageSourceResult, FileItemRequest, FileListRequest, SearchStorageRequest)
+                            AjaxJsonListStorageSourceResult, FileItemRequest, FileListRequest,
+                            SearchStorageRequest)
 
 
 class FileListModule(BaseClass):
@@ -25,14 +26,14 @@ class FileListModule(BaseClass):
         super().__init__(api_client, name=self.name)
 
     @auto_args_from_model(model=SearchStorageRequest)
-    def storage_search(self, *, data: SearchStorageRequest):
+    def storage_search(self, *, data: SearchStorageRequest) -> AjaxJsonListFileItemResult:
         """搜索存储中的文件。
 
         Args:
             data (SearchStorageRequest): 包含搜索参数的请求数据模型。
 
         Returns:
-            AjaxJsonObject: 包含搜索结果的响应对象。
+            AjaxJsonListFileItemResult: 包含搜索结果的响应对象。
 
         Raises:
             CustomException: 当请求失败或 API 返回错误时。
@@ -46,14 +47,14 @@ class FileListModule(BaseClass):
         return response
 
     @auto_args_from_model(model=FileListRequest)
-    def storage_files(self, *, data: FileListRequest):
+    def storage_files(self, *, data: FileListRequest) -> AjaxJsonFileInfoResult:
         """获取存储中的文件列表。
 
         Args:
             data (FileListRequest): 包含存储参数的请求数据模型。
 
         Returns:
-            AjaxJsonObject: 包含文件列表的响应对象。
+            AjaxJsonFileInfoResult: 包含文件列表的响应对象。
 
         Raises:
             CustomException: 当请求失败或 API 返回错误时。
@@ -67,14 +68,14 @@ class FileListModule(BaseClass):
         return response
 
     @auto_args_from_model(model=FileItemRequest)
-    def storage_files_item(self, *, data: FileItemRequest):
+    def storage_files_item(self, *, data: FileItemRequest) -> AjaxJsonFileItemResult:
         """获取存储中的单个文件信息。
 
         Args:
             data (FileItemRequest): 包含文件参数的请求数据模型。
 
         Returns:
-            AjaxJsonObject: 包含单个文件信息的响应对象。
+            AjaxJsonFileItemResult: 包含单个文件信息的响应对象。
 
         Raises:
             CustomException: 当请求失败或 API 返回错误时。
@@ -87,11 +88,11 @@ class FileListModule(BaseClass):
         self._logger.info(f"[{response.trace_id}]获取存储中的单个文件信息: {response.msg}")
         return response
 
-    def storage_list(self):
+    def storage_list(self) -> AjaxJsonListStorageSourceResult:
         """获取存储列表。
 
         Returns:
-            AjaxJsonObject: 包含存储列表的响应对象。
+            AjaxJsonListStorageSourceResult: 包含存储列表的响应对象。
 
         Raises:
             CustomException: 当请求失败或 API 返回错误时。

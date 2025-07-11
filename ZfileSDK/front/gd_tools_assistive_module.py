@@ -24,14 +24,14 @@ class GdToolsAssistiveModule(BaseClass):
         super().__init__(api_client, name=self.name)
 
     @auto_args_from_model(model=GetGoogleDriveListRequest)
-    def drives(self, *, data: GetGoogleDriveListRequest):
+    def drives(self, *, data: GetGoogleDriveListRequest) -> AjaxJsonListGoogleDriveInfoResult:
         """获取 Google Drive 列表。
 
         Args:
             data (GetGoogleDriveListRequest): 包含 Google Drive 配置的请求数据模型。
 
         Returns:
-            AjaxJsonObject: 包含 Google Drive 列表的响应对象。
+            AjaxJsonListGoogleDriveInfoResult: 包含 Google Drive 列表的响应对象。
 
         Raises:
             CustomException: 当请求失败或 API 返回错误时。

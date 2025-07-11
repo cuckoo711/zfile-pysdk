@@ -17,7 +17,7 @@ from .exceptions import (
 from .logger import LogHandler
 
 # 版本信息
-__version__ = "1.0.1"
+__version__ = "1.0.3"
 
 # 导出的主要类列表
 __all__ = [
