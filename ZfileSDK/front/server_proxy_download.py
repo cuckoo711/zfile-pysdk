@@ -6,7 +6,7 @@ Project Name: zfile_sdk
 FILE NAME: server_proxy_download.py
 Editor: cuckoo
 """
-from utils.models import FileTypeEnum
+from ..utils.models import FileTypeEnum
 from ..utils.base import ApiClient, BaseClass
 from ..utils.exceptions import CustomException
 
