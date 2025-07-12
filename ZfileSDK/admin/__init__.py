@@ -23,7 +23,7 @@ from .storage_source_module_readme import StorageSourceModuleReadme
 from .user_management import UserManagement
 
 # 版本信息
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 # 导出的类列表
 __all__ = [

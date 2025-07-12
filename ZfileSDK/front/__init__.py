@@ -24,7 +24,7 @@ from .site_basic_module import SiteBasicModule
 from .user_interface import UserInterface
 
 # 版本信息
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 # 导出的类列表
 __all__ = [

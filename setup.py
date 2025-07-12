@@ -10,7 +10,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 
 setup(
     name="zfile-pysdk",
-    version="1.1.0",
+    version="1.1.1",
     author="cuckoo",
     author_email="3038604221@qq.com",
     description="Python SDK for ZFile API - 功能完整的ZFile文件管理系统SDK",

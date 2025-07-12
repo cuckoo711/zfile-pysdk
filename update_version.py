@@ -35,29 +35,24 @@ class VersionUpdater:
             },
             {
                 'file': 'ZfileSDK/__init__.py',
-                'pattern': r'__version__ = "1.1.0"]+)"',
-                'replacement': '__version__ = "1.1.0"'
+                'pattern': r'__version__ = "([^"]+)"',
+                'replacement': '__version__ = "{version}"'
             },
             {
                 'file': 'ZfileSDK/admin/__init__.py',
-                'pattern': r'__version__ = "1.1.0"]+)"',
-                'replacement': '__version__ = "1.1.0"'
+                'pattern': r'__version__ = "([^"]+)"',
+                'replacement': '__version__ = "{version}"'
             },
             {
                 'file': 'ZfileSDK/front/__init__.py',
-                'pattern': r'__version__ = "1.1.0"]+)"',
-                'replacement': '__version__ = "1.1.0"'
+                'pattern': r'__version__ = "([^"]+)"',
+                'replacement': '__version__ = "{version}"'
             },
             {
                 'file': 'docs/README.md',
                 'pattern': r'- 当前版本：\*\*([^*]+)\*\*',
                 'replacement': '- 当前版本：**{version}**'
             },
-            {
-                'file': 'update_version.py',
-                'pattern': r'__version__ = "1.1.0"]+)"',
-                'replacement': '__version__ = "1.1.0"'
-            }
         ]
 
     def get_current_version(self) -> str:
@@ -67,7 +62,6 @@ class VersionUpdater:
             当前版本号
         """
         pyproject_path = os.path.join(self.project_root, 'pyproject.toml')
-        update_version_path = os.path.join(self.project_root, 'update_version.py')
 
         if os.path.exists(pyproject_path):
             with open(pyproject_path, 'r', encoding='utf-8') as f:
@@ -76,14 +70,7 @@ class VersionUpdater:
             if match:
                 return match.group(1)
 
-        if os.path.exists(update_version_path):
-            with open(update_version_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-            match = re.search(r'__version__ = "1.1.0"]+)"', content)
-            if match:
-                return match.group(1)
-
-        raise ValueError("无法从pyproject.toml或update_version.py中找到版本号")
+        raise ValueError("无法从pyproject.toml中找到版本号")
 
     @staticmethod
     def validate_version_format(version: str) -> bool:
