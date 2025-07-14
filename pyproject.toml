@@ -49,10 +49,10 @@ docs = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/cuckoo711/zfile_sdk"
-"Bug Tracker" = "https://github.com/cuckoo711/zfile_sdk/issues"
+"Homepage" = "https://github.com/cuckoo711/zfile-pysdk"
+"Bug Tracker" = "https://github.com/cuckoo711/zfile-pysdk/issues"
 "Documentation" = "https://api.zfile.vip/"
-"Source Code" = "https://github.com/cuckoo711/zfile_sdk"
+"Source Code" = "https://github.com/cuckoo711/zfile-pysdk"
 
 [tool.setuptools.packages.find]
 where = ["."]  # list of folders that contain the packages (["src"] by default)

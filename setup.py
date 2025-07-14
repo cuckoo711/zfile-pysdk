@@ -16,11 +16,11 @@ setup(
     description="Python SDK for ZFile API - 功能完整的ZFile文件管理系统SDK",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/cuckoo711/zfile_sdk",
+    url="https://github.com/cuckoo711/zfile-pysdk",
     project_urls={
-        "Bug Tracker": "https://github.com/cuckoo711/zfile_sdk/issues",
+        "Bug Tracker": "https://github.com/cuckoo711/zfile-pysdk/issues",
         "Documentation": "https://api.zfile.vip/",
-        "Source Code": "https://github.com/cuckoo711/zfile_sdk",
+        "Source Code": "https://github.com/cuckoo711/zfile-pysdk",
     },
     packages=find_packages(),
     classifiers=[

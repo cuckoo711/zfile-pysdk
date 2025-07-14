@@ -27,8 +27,8 @@ pip install zfile-pysdk
 ### 从源码安装
 
 ```bash
-git clone https://github.com/cuckoo711/zfile_sdk.git
-cd zfile_sdk
+git clone https://github.com/cuckoo711/zfile-pysdk.git
+cd zfile-pysdk
 pip install -r requirements.txt
 pip install -e .
 ```
@@ -364,14 +364,14 @@ def get_files(*, data: FileListRequest):
 - [PyPI 包页面](https://pypi.org/project/zfile-pysdk/)
 - [ZFile 官方网站](https://www.zfile.vip/)
 - [ZFile GitHub](https://github.com/zfile-dev/zfile)
-- [问题反馈](https://github.com/cuckoo711/zfile_sdk/issues)
+- [问题反馈](https://github.com/cuckoo711/zfile-pysdk/issues)
 
 ## 📞 支持
 
 如果您在使用过程中遇到问题，请通过以下方式获取帮助：
 
 - 查看 [官方API文档](https://api.zfile.vip/)
-- 提交 [Issue](https://github.com/cuckoo711/zfile_sdk/issues)
+- 提交 [Issue](https://github.com/cuckoo711/zfile-pysdk/issues)
 - 向我发送[邮件](mailto:3038604221@qq.com)获取支持
 
 ## 📝 注意事项
